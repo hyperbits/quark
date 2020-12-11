@@ -2,8 +2,9 @@ package controller
 
 import (
 	"net/http"
-	"quark/quark"
-	"quark/response"
+
+	"github.com/mattfroese/quark"
+	"github.com/mattfroese/quark/response"
 )
 
 type Controller struct {
