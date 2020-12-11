@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-	log.Print("Initializing App")
 	a := quark.App{}
 
     // Load environment, db and router
@@ -31,7 +30,7 @@ func main() {
 }
 
 type Controller struct {
-	controller.Controller
+	App *quark.App
 }
 
 func (c *Controller) HealthCheck() http.Handler {
