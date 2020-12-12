@@ -8,22 +8,26 @@ A go framework for building RESTful API's
 package main
 
 import (
+	"bercon-api/models"
 	"net/http"
-	"github.com/mattfroese/quark"
-	"github.com/mattfroese/quark/controller"
-	"github.com/mattfroese/quark/response"
+
+	"github.com/hyperbits/quark"
+	"github.com/hyperbits/quark/response"
 )
 
 func main() {
 	a := quark.App{}
 
-    // Load environment, db and router
-	a.Initialize()
+	// Load environment, db and router
+	a.LoadEnvironment()
+	a.SetupLogger()
+	//a.SetupDB()
+	a.SetupRouter()
 
-    // Migrate Gorm models
-	migrateDB(&a)
+	// Migrate Gorm models
+	// migrateDB(&a)
 
-    // Setup routes
+	// Setup routes
 	routes(&a)
 
 	a.Serve()
@@ -33,19 +37,15 @@ type Controller struct {
 	App *quark.App
 }
 
-func (c *Controller) HealthCheck() http.Handler {
+func (c *Controller) HelloWorld() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		response.RespondWithJSON(w, http.StatusOK, map[string]string{"version": "1.0.0"})
+		response.RespondWithJSON(w, http.StatusOK, map[string]string{"Hello": "World!"})
 	})
 }
 
 func routes(a *quark.App) {
 	c := Controller{App: a}
-	a.Get("/health", c.HealthCheck())
-}
-
-func migrateDB(a *quark.App) {
-	a.DB.AutoMigrate(&models.User{})
+	a.Get("/", c.HelloWorld())
 }
 
 ```
