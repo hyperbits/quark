@@ -8,7 +8,6 @@ A go framework for building RESTful API's
 package main
 
 import (
-	"bercon-api/models"
 	"net/http"
 
 	"github.com/hyperbits/quark"
