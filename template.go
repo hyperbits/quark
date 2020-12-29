@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
-	"quark/models"
 	"strings"
+
+	"github.com/hyperbits/quark/models"
 )
 
 func (a *App) Template(templateName, typeName string, data map[string]interface{}) (content string, err error) {
