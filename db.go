@@ -2,6 +2,7 @@ package quark
 
 import (
 	"os"
+	"quark/models"
 
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
@@ -14,7 +15,12 @@ func (a *App) SetupDB() {
 	if err != nil {
 		log.Fatal("DB: Failed to connect database: ", err)
 	}
+	gorm.LogMode(true)
 
-    gorm.LogMode(true)
 	a.DB = gorm
+	a.MigrateDB()
+}
+
+func (a *App) MigrateDB() {
+	a.DB.AutoMigrate(&models.Template{})
 }

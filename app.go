@@ -31,6 +31,10 @@ func (a *App) Initialize() {
 	a.SetupRouter()
 }
 
+func (a *App) Use(i Mod) {
+	i.Setup(a)
+}
+
 func (a *App) Serve() {
 	port := os.Getenv("PORT")
 	if port == "" {
